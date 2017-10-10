@@ -45,4 +45,14 @@ képernyőképeket (egyelőre) nem készítünk, mert az MVC template-ek elkész
 Érdeklődő elkéri az étlapot és megnézi, hogy mit lehet nálunk enni, mennyiért.
 
 
+# Code First Migration
+kell hozzá:
 
+- EntityFramework nuget csomag
+- a Code First Migration engedélyezése: a package Manager Console-ból: enable-migration
+- ezzel létrejön egy Migrations könyvtár, ez alatt egy Configuration.cs állomány
+- ha már létezik adatbázis, akkor automatikusan létrejön ide az első MigrationStep (XXX_InitialCreate névvel)
+- ha nincs első migrációs lépés, akkor kézzel készítünk a Package Manager Console-ból: Add-Migration 'InitialCreate'
+- végül létrehozzuk az adatbázist Package Manager Console-ból: Update-Database
+
+az adatbázis pedig az SQL Server object Explorer ablakban látjuk a localdb csomópont alatt. Lehet, hogy frissítenünk kell.
