@@ -26,6 +26,7 @@ namespace OopRestaurant201710.Models
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
 
         public static ApplicationDbContext Create()
         {
