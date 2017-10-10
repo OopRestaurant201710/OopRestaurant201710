@@ -46,7 +46,7 @@ képernyőképeket (egyelőre) nem készítünk, mert az MVC template-ek elkész
 
 
 # Code First Migration
-kell hozzá:
+## kell hozzá:
 
 - EntityFramework nuget csomag
 - a Code First Migration engedélyezése: a package Manager Console-ból: enable-migration
@@ -54,6 +54,8 @@ kell hozzá:
 - ha már létezik adatbázis, akkor automatikusan létrejön ide az első MigrationStep (XXX_InitialCreate névvel)
 - ha nincs első migrációs lépés, akkor kézzel készítünk a Package Manager Console-ból: Add-Migration 'InitialCreate'
 - végül létrehozzuk az adatbázist Package Manager Console-ból: Update-Database
+
+Az utolsó három lépés az ASP.NET Identity (bejelentkeztető és jogosultságkezelő modul, Login és Register menüpont) miatt kell, különben nem kéne.
 
 az adatbázis pedig az SQL Server object Explorer ablakban látjuk a localdb csomópont alatt. Lehet, hogy frissítenünk kell.
 
@@ -87,5 +89,12 @@ az adatbázis pedig az SQL Server object Explorer ablakban látjuk a localdb cso
                                                                      |  SQL ADATBÁZIS              |
                                                                      |-----------------------------|
                                                                      |                             |
-                                                                     +-----------------------------+```
+                                                                     +-----------------------------+
+```
 
+## Saját adat adatbázisba tétele
+
+- Létre kell hozni egy osztályt, ami az adatokat tartalmazza (pl. Category)
+- Az osztályt fel kell venni DbSet típusú property-ként az ApplicationDbContext osztályba.
+- ki kell adni az Add-Migration parancsot
+- ki kell adni az Update-Database parancsot.
