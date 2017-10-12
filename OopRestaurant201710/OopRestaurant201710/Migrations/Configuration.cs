@@ -18,6 +18,7 @@ namespace OopRestaurant201710.Migrations
             context.Categories.AddOrUpdate(x => x.Name, new Category(name: "Pizzák"));
             context.Categories.AddOrUpdate(x => x.Name, new Category(name: "Italok"));
             context.Categories.AddOrUpdate(x => x.Name, new Category(name: "Desszertek"));
+            context.SaveChanges();
 
             var pizzaCategory = context.Categories.Single(x => x.Name == "Pizzák");
 
@@ -26,7 +27,7 @@ namespace OopRestaurant201710.Migrations
 
             context.MenuItems.AddOrUpdate(x => x.Name, new MenuItem(name: "Hawaii",
                 description: "Sonka, ananász, mozzarella sajt, paradicsomszósz", price: 100, category: pizzaCategory));
-
+            context.SaveChanges();
         }
     }
 }
