@@ -49,21 +49,21 @@ képernyőképeket (egyelőre) nem készítünk, mert az MVC template-ek elkész
 ## kell hozzá:
 
 - EntityFramework nuget csomag
-- a Code First Migration engedélyezése: a package Manager Console-ból: enable-migration
+- a Code First Migration engedélyezése: a *Package Manager Console*-ból: **enable-migration**
 - ezzel létrejön egy Migrations könyvtár, ez alatt egy Configuration.cs állomány
-- ha már létezik adatbázis, akkor automatikusan létrejön ide az első MigrationStep (XXX_InitialCreate névvel)
-- ha nincs első migrációs lépés, akkor kézzel készítünk a Package Manager Console-ból: Add-Migration 'InitialCreate'
-- végül létrehozzuk az adatbázist Package Manager Console-ból: Update-Database
+- ha már létezik adatbázis, akkor automatikusan létrejön ide az első *MigrationStep* (XXX_InitialCreate névvel)
+- ha nincs első migrációs lépés, akkor kézzel készítünk a Package Manager Console-ból: **Add-Migration 'InitialCreate'**
+- végül létrehozzuk az adatbázist *Package Manager Console*-ból: **Update-Database**
 
-Az utolsó három lépés az ASP.NET Identity (bejelentkeztető és jogosultságkezelő modul, Login és Register menüpont) miatt kell, különben nem kéne.
+Az utolsó három lépés az **ASP.NET Identity** (bejelentkeztető és jogosultságkezelő modul, Login és Register menüpont) miatt kell, különben nem kéne.
 
-az adatbázis pedig az SQL Server object Explorer ablakban látjuk a localdb csomópont alatt. Lehet, hogy frissítenünk kell.
+az adatbázist pedig az **SQL Server Object Explorer* ablakban látjuk a **localdb** csomópont alatt. Lehet, hogy frissítenünk kell.
 
 ```
-                                                +------------------+
-                                                | Update-Database  |
+                 +---------------+              +------------------+
+                 | Add-Migration |              | Update-Database  |
                            +------------+       +------------------+
-   +------------------+    | Step 1     |                                   +--------------+    +
+   +------------------+    | MigrStep 1 |                                   +--------------+    +
    | Model            |    |------------|                                   |              |    |
    |------------------|    |            |    +-------------------------->   | SQL script 1 |    |
    |                  |+-> |            |                                   |              |    |
@@ -71,7 +71,7 @@ az adatbázis pedig az SQL Server object Explorer ablakban látjuk a localdb cso
    |                  |    +------------+                                                       |
    |                  |                                                                         |
    |                  |    +------------+                                                       |
-   |                  |    | Step 2     |                                                       |
+   |                  |    | MigStep 2     |                                                       |
    |                  |    |------------|                                   +--------------+    |
    |                  |+-> |            |   +--------------------------->   |              |    |
    |                  |    |            |                                   | SQL script 2 |    |
@@ -79,7 +79,7 @@ az adatbázis pedig az SQL Server object Explorer ablakban látjuk a localdb cso
    +------------------+    +------------+                                   +--------------+    |
                     +                                                                           |
                     |      +------------+                                                       |
-                    |      | Step 3     |                                   +---------------+   |
+                    |      | MigrStep 3 |                                   +---------------+   |
                     |      |------------|                                   |               |   |
                     |      |            |   +--------------------------->   | SQL script 3  |   |
                     +----->|            |                                   |               |   |
@@ -93,8 +93,7 @@ az adatbázis pedig az SQL Server object Explorer ablakban látjuk a localdb cso
 ```
 
 ## Saját adat adatbázisba tétele
-
-- Létre kell hozni egy osztályt, ami az adatokat tartalmazza (pl. Category)
-- Az osztályt fel kell venni DbSet típusú property-ként az ApplicationDbContext osztályba.
-- ki kell adni az Add-Migration parancsot
-- ki kell adni az Update-Database parancsot.
+- Létre kell hozni egy osztályt, ami az adatokat tartalmazza (pl. *public class Category { ... }*)
+- Az osztályt fel kell venni DbSet típusú property-ként az ApplicationDbContext osztályba (pl: *public DbSet<Category> Categories { get; set; }*).
+- ki kell adni az **Add-Migration** parancsot (a *Package Manager Console*-ból)
+- ki kell adni az **Update-Database** parancsot (a *Package Manager Console*-ból).
