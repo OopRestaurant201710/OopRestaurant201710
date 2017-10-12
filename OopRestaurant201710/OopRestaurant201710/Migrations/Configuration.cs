@@ -15,18 +15,18 @@ namespace OopRestaurant201710.Migrations
 
         protected override void Seed(OopRestaurant201710.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            context.Categories.AddOrUpdate(x => x.Name, new Category(name: "Pizzák"));
+            context.Categories.AddOrUpdate(x => x.Name, new Category(name: "Italok"));
+            context.Categories.AddOrUpdate(x => x.Name, new Category(name: "Desszertek"));
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var pizzaCategory = context.Categories.Single(x => x.Name == "Pizzák");
+
+            context.MenuItems.AddOrUpdate(x => x.Name, new MenuItem(name: "Margarita",
+                description: "Mozzarella sajt, paradicsomszósz", price: 100, category: pizzaCategory));
+
+            context.MenuItems.AddOrUpdate(x => x.Name, new MenuItem(name: "Hawaii",
+                description: "Sonka, ananász, mozzarella sajt, paradicsomszósz", price: 100, category: pizzaCategory));
+
         }
     }
 }

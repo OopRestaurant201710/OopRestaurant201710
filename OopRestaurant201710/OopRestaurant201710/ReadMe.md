@@ -100,3 +100,8 @@ az adatbázist pedig az **SQL Server Object Explorer* ablakban látjuk a **local
 
 ## Adatbázis helyének megválasztása
 A web.config-ban a ConnectionStrings beállítást kell átírni, i9tt vannak a minták: https://www.connectionstrings.com/sql-server/
+
+## Kezdeti automatikus adatfeltöltés
+\migrations\configuration.cs
+
+Minden update-database esetén lefut

@@ -11,6 +11,21 @@ namespace OopRestaurant201710
     /// </summary>
     public class MenuItem
     {
+        /// <summary>
+        /// Az EntityFramework részére legyártjuk a
+        /// paraméter nélküli konstruktort, amit
+        /// a fordító már nem csinál meg nekünk
+        /// </summary>
+        public MenuItem() {}
+
+        public MenuItem(string name, string description, int price, Category category)
+        {
+            Name = name;
+            Description = description;
+            Price = price;
+            Category = category;
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
