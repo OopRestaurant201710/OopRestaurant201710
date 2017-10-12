@@ -97,3 +97,6 @@ az adatbázist pedig az **SQL Server Object Explorer* ablakban látjuk a **local
 - Az osztályt fel kell venni DbSet típusú property-ként az ApplicationDbContext osztályba (pl: *public DbSet<Category> Categories { get; set; }*).
 - ki kell adni az **Add-Migration** parancsot (a *Package Manager Console*-ból)
 - ki kell adni az **Update-Database** parancsot (a *Package Manager Console*-ból).
+
+## Adatbázis helyének megválasztása
+A web.config-ban a ConnectionStrings beállítást kell átírni, i9tt vannak a minták: https://www.connectionstrings.com/sql-server/
