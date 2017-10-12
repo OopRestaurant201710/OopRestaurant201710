@@ -3,6 +3,8 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.ComponentModel;
+using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OopRestaurant201710
 {
@@ -35,5 +37,17 @@ namespace OopRestaurant201710
         public int Price { get; set; }
 
         public Category Category { get; set; }
+
+        /// <summary>
+        /// A lenyíló lista kiválasztott elemének az azonosítója részére
+        /// </summary>
+        [NotMapped]
+        public int CategoryId { get; set; }
+
+        /// <summary>
+        /// A lenyíló lista tartalma: azonosító és megjelenítendő szöveg párok.
+        /// </summary>
+        [NotMapped]
+        public SelectList AssignableCategories { get; set; }
     }
 }
