@@ -189,6 +189,10 @@
     <Compile Include="Migrations\201710101338272_add MenuItem table.Designer.cs">
       <DependentUpon>201710101338272_add MenuItem table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710171341260_add required validations to MenuItem.cs" />
+    <Compile Include="Migrations\201710171341260_add required validations to MenuItem.Designer.cs">
+      <DependentUpon>201710171341260_add required validations to MenuItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -263,6 +267,7 @@
     <Content Include="Views\MenuItems\Details.cshtml" />
     <Content Include="Views\MenuItems\Edit.cshtml" />
     <Content Include="Views\MenuItems\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MenuItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -284,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710101338272_add MenuItem table.resx">
       <DependentUpon>201710101338272_add MenuItem table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710171341260_add required validations to MenuItem.resx">
+      <DependentUpon>201710171341260_add required validations to MenuItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

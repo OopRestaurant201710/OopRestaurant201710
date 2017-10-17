@@ -70,8 +70,8 @@ az adatbázist pedig az **SQL Server Object Explorer* ablakban látjuk a **local
    |  Category        |    |            |                                   +--------------+    |
    |                  |    +------------+                                                       |
    |                  |                                                                         |
-   |                  |    +------------+                                                       |
-   |                  |    | MigStep 2     |                                                       |
+   |  MenuItem        |    +------------+                                                       |
+   |                  |    | MigStep 2  |                                                       |
    |                  |    |------------|                                   +--------------+    |
    |                  |+-> |            |   +--------------------------->   |              |    |
    |                  |    |            |                                   | SQL script 2 |    |
@@ -225,4 +225,17 @@ UserId | RoleId
 
 **Figyelem!**
 A jogosultságokat cookie-ba írja, onnan olvassa az ASP.NET, és bejelentkezéskor írja, ezért ha változik valami, akkor ki kell jelentkezni és bejelentkezni, csak akkor lesz érvényes.
+
+## Saját megjelenítő és szerkesztő HTML template
+
+A cél: kiemelni azonos kódot egy külön állományba, majd különböző helyekről használni.
+
+- A View\Shared\**EditorTemplates** mappában vannak a szerkesztésre használt temlate nézetek.
+- Ha kiadjuk a @Html.EditorForModel() utasítást a View-n, akkor az ASP.NET ezek közül megkeresi azt, ami a model-hez tartozik.
+- Ha nincs ilyen, akkor generál egy alapértelmezettet
+- ha van (MenuItem osztálynak a MenuItem.cshtml lesz a template-je, név alapján egyeztet) akkor beemeli az aktuális helyre az utasítás helyére
+
+
+
+
 
