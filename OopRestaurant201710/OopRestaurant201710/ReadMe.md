@@ -199,3 +199,30 @@ Például: fel tudok venni Admin, Pincér, Szakács, Főpincér csoportokat, és
 
 Majd, azt tudom mondani, hogy egy adott Controller/Action egy adott csoport számára használható.
 
+### Csoport (Role) létrehozása
+- Az AspNetRole táblába felvisszük a csoportok neveit (figyelem, az id mező GUID-ot vár, például [itt lehet](https://guidgenerator.com/online-guid-generator.aspx) ilyet generálni)
+- Regisztrálunk felhasználókat (Ezek az AspNetUsers táblába kerülnek. Szintén GUID az id mezője)
+- A felhasználókat hozzá tudjuk adni a csoporthoz úgy, hogy az AspNetUsers.ID értékéből és az AspNetRoles.Id értékéből létrejött párt felvesszük az AspNetUserRoles táblába
+
+**AspNetUsers**
+
+| AspNetUsers.Id | EMail |
+| 72fae958-3f45-4563-871e-5a4762dbfae1 | gabor.plesz@gmail.com |
+| **b8d3e6fc-84a6-4b38-8c0b-21590bd1bc90** | fopincer@netacademia.hu |
+| cc2ac419-dbc1-4bd1-ade5-8a022eb96b7c | pincer@netacademia.hu |
+
+**AspNetRoles**
+
+AspNetRoles.Id|Name
+d99da16c-0611-41a6-8e26-1793cc395d92|Admin
+ae8e77d1-c3ff-4036-b8aa-0765c6ac101c|Pincer
+**f5c4b79f-eaa7-4ce3-a759-4ce0c65b**|Fopincer
+
+A végeredmény: **AspNetUserRoles**
+
+UserId | RoleId
+**b8d3e6fc-84a6-4b38-8c0b-21590bd1bc90** | **f5c4b79f-eaa7-4ce3-a759-4ce0c65b**
+
+**Figyelem!**
+A jogosultságokat cookie-ba írja, onnan olvassa az ASP.NET, és bejelentkezéskor írja, ezért ha változik valami, akkor ki kell jelentkezni és bejelentkezni, csak akkor lesz érvényes.
+

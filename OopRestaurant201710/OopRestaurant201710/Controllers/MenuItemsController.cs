@@ -37,7 +37,7 @@ namespace OopRestaurant201710.Controllers
         }
 
         // GET: MenuItems/Create
-        [Authorize]
+        [Authorize(Roles = "Fopincer,Admin")] //Csak a Főpincér és az Admin csoport tagjai használhatják ezt az Action-t
         public ActionResult Create()
         {
             return View();
@@ -48,7 +48,7 @@ namespace OopRestaurant201710.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Fopincer,Admin")] //Csak a Főpincér és az Admin csoport tagjai használhatják ezt az Action-t
         public ActionResult Create([Bind(Include = "Id,Name,Description,Price")] MenuItem menuItem)
         {
             if (ModelState.IsValid)
@@ -62,6 +62,9 @@ namespace OopRestaurant201710.Controllers
         }
 
         // GET: MenuItems/Edit/5
+        //Ezt a megoldást nem használjuk, mert minden új felhasználónál 
+        //hozzá kell nyúlni a kódhoz és újrafordítani/telepíteni
+        //[Authorize(Users = "gabor.plesz@gmail.com")] 
         [Authorize]
         public ActionResult Edit(int? id)
         {
