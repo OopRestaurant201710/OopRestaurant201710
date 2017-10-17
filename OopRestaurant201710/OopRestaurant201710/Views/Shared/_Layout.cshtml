@@ -9,25 +9,29 @@
 
 </head>
 <body>
+    @* Bootstrap navbar-t használ az ASP.NET MVC alkalmazás template a felső menü kialakítására*@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <div class="navbar-header"> @* a "home" link és a hamburger menü *@
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> @* hamburger menü *@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("OopRestaurant201710", "Index", "MenuItems", new { area = "" }, new { @class = "navbar-brand" })
+                </button> @* hamburger menü vége *@
+                @Html.ActionLink("OopRestaurant201710", "Index", "MenuItems", new { area = "" }, new { @class = "navbar-brand" }) @* home link *@
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse"> @* a menüsáv azon része, ami eltűnik, ha jön a hamburger menü*@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Étlap", "Index", "MenuItems")</li>
-                    <li>@Html.ActionLink("Kategóriák", "Index", "Categories")</li>
+                    @if (Request.IsAuthenticated)
+                    { @* a kategóriák link csak akkor látszik, ha a felhasználó be van jelentkezve*@
+                        <li>@Html.ActionLink("Kategóriák", "Index", "Categories")</li>
+                    }
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial") @* ez a rész mutatja a bejelentkezéssel kapcsolatos linkeket*@
             </div>
         </div>
-    </div>
+    </div> @*bootstrap navbar vége*@
     <div class="container body-content">
         @RenderBody()
         <hr />

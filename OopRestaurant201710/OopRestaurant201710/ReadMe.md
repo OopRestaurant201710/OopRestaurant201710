@@ -177,3 +177,25 @@ Minden update-database esetén lefut
  |               |
  +---------------+
 ```
+
+
+## A Felhasználók azonosítása és jogosultságkezelés
+
+Bevezető rész: azonosítjuk a felhasználóinkat, és elválasztjuk a bejelentkezett és a be nem jelentkezett felhasználókat egymástól.
+
+Az **ASP.NET Identity** a következőket végzi:
+
+- lehetővé teszi a felhasználók regisztrációját az oldalon
+- a regisztrált felhasználóknak végzi a session kezelését (session: bejelentkezéstől kijelentkezésig terjedő tevékenység)
+- le tudjuk kérdezni egy kérés kiszolgálásakor, hogy a felhasználó be van-e jelentkezve, és ha igen, akkor mi az ő neve.
+- a controllereket és az action-öket védeni tudjuk: megadhatjuk, hogy csak bejelentkezett felhasználók férjenek hozzá a teljes controllerhez (a controller összes action-jéhez) vagy az egyes action-ökhöz.
+
+- Authentikáció: felhasználó azonosítás (bejelentkeztetés, sesion kezelés, kijelentkeztetés)
+- Authorizáció: az adott felhasználónak van-e joga az adott tevékenységre (Controller/Action).
+
+Az ASP.NET Identity alapértelmezetten Roles Based Authorizációval foglalkozik. Ez azt jelenti, hogy a felhasználókat csoportokba tudjuk rendezni, és csoport alapon tudunk jogosultságot osztani.
+
+Például: fel tudok venni Admin, Pincér, Szakács, Főpincér csoportokat, és az egyes felhasználókat fel tudom venni ezekbe a csoportokba.
+
+Majd, azt tudom mondani, hogy egy adott Controller/Action egy adott csoport számára használható.
+

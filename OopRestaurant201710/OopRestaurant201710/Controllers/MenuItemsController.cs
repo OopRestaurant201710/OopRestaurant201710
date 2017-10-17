@@ -37,6 +37,7 @@ namespace OopRestaurant201710.Controllers
         }
 
         // GET: MenuItems/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +48,7 @@ namespace OopRestaurant201710.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "Id,Name,Description,Price")] MenuItem menuItem)
         {
             if (ModelState.IsValid)
@@ -60,6 +62,7 @@ namespace OopRestaurant201710.Controllers
         }
 
         // GET: MenuItems/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -93,6 +96,7 @@ namespace OopRestaurant201710.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken] //Be kell engedni a lenyíló által kiválasztott azonosítót
+        [Authorize]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,CategoryId")] MenuItem menuItem) 
         {
             if (ModelState.IsValid)
@@ -119,6 +123,7 @@ namespace OopRestaurant201710.Controllers
         }
 
         // GET: MenuItems/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -136,6 +141,7 @@ namespace OopRestaurant201710.Controllers
         // POST: MenuItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             MenuItem menuItem = db.MenuItems.Find(id);

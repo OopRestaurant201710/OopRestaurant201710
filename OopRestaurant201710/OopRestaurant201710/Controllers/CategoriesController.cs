@@ -11,6 +11,7 @@ using OopRestaurant201710.Models;
 
 namespace OopRestaurant201710.Controllers
 {
+    [Authorize] //Ezzel csak bejelentkezett felhasználók érhetik el a controller funkcióit. 
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
