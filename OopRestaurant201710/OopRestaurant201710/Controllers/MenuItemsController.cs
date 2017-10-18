@@ -15,6 +15,11 @@ namespace OopRestaurant201710.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        private void LoadAssignableCategories(MenuItem menuItem)
+        {
+            menuItem.AssignableCategories = new SelectList(db.Categories.OrderBy(x => x.Name).ToList(), "Id", "Name");
+        }
+
         // GET: MenuItems
         public ActionResult Index()
         {
@@ -33,6 +38,7 @@ namespace OopRestaurant201710.Controllers
             {
                 return HttpNotFound();
             }
+            LoadAssignableCategories(menuItem);
             return View(menuItem);
         }
 
@@ -83,11 +89,6 @@ namespace OopRestaurant201710.Controllers
             }
             LoadAssignableCategories(menuItem);
             return View(menuItem);
-        }
-
-        private void LoadAssignableCategories(MenuItem menuItem)
-        {
-            menuItem.AssignableCategories = new SelectList(db.Categories.OrderBy(x => x.Name).ToList(), "Id", "Name");
         }
 
         // GET: MenuItems/Edit/5
@@ -180,6 +181,7 @@ namespace OopRestaurant201710.Controllers
             {
                 return HttpNotFound();
             }
+            LoadAssignableCategories(menuItem);
             return View(menuItem);
         }
 

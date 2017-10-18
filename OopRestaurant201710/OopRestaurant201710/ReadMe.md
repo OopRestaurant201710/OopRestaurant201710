@@ -339,3 +339,44 @@ Ha szét akarnánk szedni ezeket a szerepeket, akkor lenne:
 - és egy CategoryViewModel, amit a Controller gyárt, és átad a View-nak, illetve, a Controller fogad a HTML Form-ról és gyárt belőle CategoryModel-t, amit aztán valahogy Category-vá alakítunk és az adatbázisba írjuk.
 
 
+## Nézet generálása DisplayTemplate segítségével
+
+```
+
+
+
+
+
+                        +------------------+             +---------------------------+
+       +----------+  +->|  Create/Edit     |     +------>|  EditorTemplates-MenuItem |
+       |  Layout  |  |  |------------------|     |       |---------------------------|
+       |----------|  |  | bbb              |     +       |                           |
+       |aaa       |  |  | EditorForModel() |+---->       | ccc                       |
+       |aaa       |  |  | bbb              |             +---------------------------+
+       |          |  +  +------------------+
+       |RenderBody|+->
+       |          |  +
+       |aaa       |  |
+       |aaa       |  |  +------------------+             +---------------------------+
+       +----------+  +->|  Details/Delete  |     +------>| DisplayTemplates-MenuItem |
+                        |------------------|     |       |---------------------------|
+                        |bbb               |     +       |                           |
+                        |EditorForModel()  |+---->       | ccc                       |
+                        |bbb               |             +---------------------------+
+                        |                  |
+                        +------------------+
+
+                        +------------------+
+                        |Eredmény          |
+                        |------------------|
+                        |aaaa              |
+                        |aaaa              |
+                        |bbb               |
+                        |ccc               |
+                        |bbb               |
+                        |aaaa              |
+                        |aaaa              |
+                        +------------------+
+
+
+```

@@ -268,6 +268,7 @@
     <Content Include="Views\MenuItems\Edit.cshtml" />
     <Content Include="Views\MenuItems\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MenuItem.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MenuItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

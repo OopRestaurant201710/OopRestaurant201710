@@ -1,0 +1,30 @@
+﻿@model OopRestaurant201710.Models.MenuItem
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownListFor(model => model.CategoryId, Model.AssignableCategories, htmlAttributes: new { @class = "form-control", disabled="disabled" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+    </div>
+</div>
+
