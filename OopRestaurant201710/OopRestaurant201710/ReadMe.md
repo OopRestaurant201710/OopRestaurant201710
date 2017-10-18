@@ -235,7 +235,95 @@ A cél: kiemelni azonos kódot egy külön állományba, majd különböző hely
 - Ha nincs ilyen, akkor generál egy alapértelmezettet
 - ha van (MenuItem osztálynak a MenuItem.cshtml lesz a template-je, név alapján egyeztet) akkor beemeli az aktuális helyre az utasítás helyére
 
+## Saját modellek, modellek szerepe
+
+- Minden ami adat az tulajdonképpen "modell", ez a szakzsargonban szinoním fogalom.
+- Az objektumokból rengeteg van, több tízezer, mi is akármennyit létre tudunk hozni. Ezért egy listában ezeket az objektumokat nem lehet értelmesen tárolni.
+- erre találták ki a névtereket (namespace)
+- 
+
+A .NET névterek felépítése, példa
+```
+                        +------------+    +----------+
+                        |            |    |          |
+                  +----->    Data    +--->|  Entity  |
+     +------------|     |            |    |          |
+     |            +     +------------+    +----------+
+     |   System   |
+     |            +     +------------+
+     +------------|     |            |
+        +     +   +---->|    Linq    |
+        |     |         |            |
+        |     |         +------------+
+        |     |
+        |     |
+        |     |         +------------+
+        |     |         |            |
+        |     |         |    Net     |
+        |     +-------->|            |
+        |               +------------+
+        |
+        |               +------------+  +---------+
+        |               |            |  |         |
+        |               |    Web     |+>|   MVC   |
+        +-------------->|            |  |         |
+                        +------------+  +---------+
+```
+
+A saját projekt névtér hierarchiánk egy része:
+
+
+```
 
 
 
+                              +-----------------+     +-----------------------+
+                              |                 |     |                       |
+                  +---------->|   Controllers   |+--->|  MenuItemsController  |
+                  |           |                 |     |                       |
+                  |           +-----------------+     +-----------------------+
+                  |
+ +----------------+-----+
+ |                      |
+ | OopRestaurant201710  |
+ |                      |
+ +----------------+-----+
+                  |          +--------------+
+                  |          |              |
+                  +--------->|    Models    |
+                             |              |
+                             +--------------+
+```
+
+Névtér definíció, létrehozás
+
+```
+namespace CsoportosításNév
+{
+       
+}
+
+namespace CsoportosításNév.Csoportosításnév2
+{
+   class OsztályNév {}
+}
+
+```
+
+így hivatkozunk rá (1. változat, hosszú név):
+```
+var valami = CsoportosításNév.Csoportosításnév2.OsztályNév()
+```
+
+
+így hivatkozunk rá (2. változat, using):
+```
+using CsoportosításNév.Csoportosításnév2;
+
+namespace akármi
+{
+var valami = OsztályNév()
+}
+
+```
 

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="OopRestaurant201710.Category">
+  <Class Name="OopRestaurant201710.Models.Category">
     <Position X="5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Category.cs</FileName>
+      <FileName>Models\Category.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OopRestaurant201710.MenuItem">
+  <Class Name="OopRestaurant201710.Models.MenuItem">
     <Position X="2" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAQAgAAAAAAAAAAQAAAAAAAAAAAAAAAAACAA=</HashCode>
-      <FileName>MenuItem.cs</FileName>
+      <HashCode>AAACAAAAAQAgAgAAIAAAAAQAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Models\MenuItem.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Category" />

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using OopRestaurant201710;
+
 using OopRestaurant201710.Models;
 
 namespace OopRestaurant201710.Controllers

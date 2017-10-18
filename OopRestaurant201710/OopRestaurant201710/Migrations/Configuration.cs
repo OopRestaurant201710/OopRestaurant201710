@@ -1,5 +1,8 @@
+//using OopRestaurant201710.Models; Ha kívülrõl határozom meg, akkor kell a "gyökér névtér"
+
 namespace OopRestaurant201710.Migrations
 {
+    using Models; //mivel a "gyökér" közös, erre innen rálátunk, ezért csak a gyökértõl megkülönböztetõ útvonal kell
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;

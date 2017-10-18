@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace OopRestaurant201710
+namespace OopRestaurant201710.Models
 {
     /// <summary>
     /// Az étlapon szereplő tételek közül egy tétel adatait tartalmazó osztály

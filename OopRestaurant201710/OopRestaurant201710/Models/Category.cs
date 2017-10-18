@@ -4,7 +4,7 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.ComponentModel;
 
-namespace OopRestaurant201710
+namespace OopRestaurant201710.Models
 {
     /// <summary>
     /// Az ételek kategóriáját tartalmazó osztály
