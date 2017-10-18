@@ -71,6 +71,63 @@ namespace OopRestaurant201710.Controllers
             return menuItem;
         }
 
+        private void CreateUpdateOrDeleteMenuItem(MenuItem menuItem, CreateUpdateOrDeleteOperation op)
+        {
+            switch (op)
+            {
+                case CreateUpdateOrDeleteOperation.Create:
+                    var categoryCreate = db.Categories.Find(menuItem.CategoryId);
+                    //todo: ezt a részt vissza integrálni
+                    //if (category == null)
+                    //{ //Ha nincs ilyen kategóriám, akkor nem tudok mit tenni, 
+                    //  //visszaküldöm az adatokat módosításra
+                    //    LoadAssignableCategories(menuItem);
+                    //    return View(menuItem);
+                    //}
+
+                    db.MenuItems.Attach(menuItem);
+                    //mivel ez egy vadonatúj elem, ami még nem volt adatbázisban,
+                    //ezért nem tudunk property-t tölteni, mert nincs honnan.
+                    //ezért az Edit-tel ellentétben ez a sor nem kell.
+                    //db.Entry(menuItem).Reference(x => x.Category).Load();
+                    menuItem.Category = categoryCreate;
+                    return;
+
+                case CreateUpdateOrDeleteOperation.Update:
+                    var categoryUpdate = db.Categories.Find(menuItem.CategoryId);
+
+                    //todo: ezt a részt vissza kell integrálni
+                    //if (category == null)
+                    //{ //Ha nincs ilyen kategóriám, akkor nem tudok mit tenni, 
+                    //  //visszaküldöm az adatokat módosításra
+                    //    LoadAssignableCategories(menuItem);
+                    //    return View(menuItem);
+                    //}
+
+                    //a html form-ról jövő adatokat "bemutatjuk" az adatbázisnak
+                    db.MenuItems.Attach(menuItem);
+
+                    //az adatbázissal kapcsolatos dolgok eléréséhez kell az Entry
+                    var entry = db.Entry(menuItem);
+
+                    //ennek segítségével betöltjük a Category tábla adatait a menuItem.Category property-be
+                    entry.Reference(x => x.Category).Load();
+
+                    //majd felülírjuk azzal, ami bejött a HTML form-on
+                    menuItem.Category = categoryUpdate;
+                    entry.State = EntityState.Modified;
+
+                    return;
+
+                case CreateUpdateOrDeleteOperation.Delete:
+                    db.MenuItems.Remove(menuItem);
+                    return;
+
+                default:
+                    throw new Exception($"Erre nem vagyunk felkészülve: {op}");
+            }
+        }
+
         private void LoadAssignableCategories(MenuItem menuItem)
         {
             menuItem.AssignableCategories = new SelectList(db.Categories.OrderBy(x => x.Name).ToList(), "Id", "Name");
@@ -102,7 +159,6 @@ namespace OopRestaurant201710.Controllers
         public ActionResult Create()
         {
             var menuItem = ReadOrNewMenuItem(null, ReadOrNewOperation.New);
-            LoadAssignableCategories(menuItem);
             return View(menuItem);
         }
 
@@ -115,21 +171,8 @@ namespace OopRestaurant201710.Controllers
         public ActionResult Create([Bind(Include = "Id,Name,Description,Price,CategoryId")] MenuItem menuItem)
         {
 
-            var category = db.Categories.Find(menuItem.CategoryId);
-            if (category == null)
-            { //Ha nincs ilyen kategóriám, akkor nem tudok mit tenni, 
-              //visszaküldöm az adatokat módosításra
-                LoadAssignableCategories(menuItem);
-                return View(menuItem);
-            }
+            CreateUpdateOrDeleteMenuItem(menuItem, CreateUpdateOrDeleteOperation.Create);
 
-            db.MenuItems.Attach(menuItem);
-            //mivel ez egy vadonatúj elem, ami még nem volt adatbázisban,
-            //ezért nem tudunk property-t tölteni, mert nincs honnan.
-            //ezért az Edit-tel ellentétben ez a sor nem kell.
-            //db.Entry(menuItem).Reference(x => x.Category).Load();
-            menuItem.Category = category;
-            
             //Újra kell az adatok ellenőrzését végezni, hiszen 
             //megmódosítottam az egyes property-ket
             ModelState.Clear(); //előző törlése
@@ -137,6 +180,7 @@ namespace OopRestaurant201710.Controllers
 
             if (ModelState.IsValid)
             {
+                //todo: házi feladat
                 db.MenuItems.Add(menuItem);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -172,28 +216,9 @@ namespace OopRestaurant201710.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken] //Be kell engedni a lenyíló által kiválasztott azonosítót
         [Authorize]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,CategoryId")] MenuItem menuItem) 
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,CategoryId")] MenuItem menuItem)
         {
-            var category = db.Categories.Find(menuItem.CategoryId);
-
-            if (category == null)
-            { //Ha nincs ilyen kategóriám, akkor nem tudok mit tenni, 
-              //visszaküldöm az adatokat módosításra
-                LoadAssignableCategories(menuItem);
-                return View(menuItem);
-            }
-
-            //a html form-ról jövő adatokat "bemutatjuk" az adatbázisnak
-            db.MenuItems.Attach(menuItem);
-
-            //az adatbázissal kapcsolatos dolgok eléréséhez kell az Entry
-            var entry = db.Entry(menuItem);
-
-            //ennek segítségével betöltjük a Category tábla adatait a menuItem.Category property-be
-            entry.Reference(x => x.Category).Load();
-
-            //majd felülírjuk azzal, ami bejött a HTML form-on
-            menuItem.Category = category;
+            CreateUpdateOrDeleteMenuItem(menuItem, CreateUpdateOrDeleteOperation.Update);
 
             //Módosítás után az adatellenőrzést el kell végezni
             ModelState.Clear();
@@ -201,7 +226,6 @@ namespace OopRestaurant201710.Controllers
 
             if (ModelState.IsValid)
             {
-                entry.State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -209,6 +233,7 @@ namespace OopRestaurant201710.Controllers
             LoadAssignableCategories(menuItem);
             return View(menuItem);
         }
+
 
         // GET: MenuItems/Delete/5
         [Authorize]
@@ -232,8 +257,9 @@ namespace OopRestaurant201710.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            MenuItem menuItem = db.MenuItems.Find(id);
-            db.MenuItems.Remove(menuItem);
+            MenuItem menuItem = ReadOrNewMenuItem(id, ReadOrNewOperation.Read);
+            CreateUpdateOrDeleteMenuItem(menuItem, CreateUpdateOrDeleteOperation.Delete);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

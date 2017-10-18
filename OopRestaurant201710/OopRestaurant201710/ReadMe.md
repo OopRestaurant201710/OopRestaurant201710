@@ -399,4 +399,12 @@ Adat(Bázis)Műveletek:
 - Read
 - New
 
+### Módosító műveletek (Post action-ök)
+- Create
+- Edit
+- Delete
 
+Ezekben a műveletekben az a közös, hogy a beérkező adatokat elmentik:
+- Create
+- Update
+- Delete
