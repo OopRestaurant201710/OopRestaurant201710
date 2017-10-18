@@ -324,6 +324,18 @@ namespace akármi
 {
 var valami = OsztályNév()
 }
-
 ```
+
+Modell osztályok elnevezése:
+
+- Ha ki szeretnénk hangsúlyozni, hogy ő egy modell, akkor mindenképpen ilyen nevet kell neki adni.
+- A Model (DataModel) az az osztály, ami az adattárolásban részt vesz. Vagy ő az az osztály, amibe, az adattárolásból betöltjük az adatokat.
+- A ViewModel az a model osztály, ami a megjelenítésben vesz csak részt, "nem megy el" az adatbázisig. Ő az, akit a Controller előállít és átad a View-nak.
+- Mi un. hibrid modellt gyártunk, (Category és MenuItem), ami mindenben részt vesz.
+
+Ha szét akarnánk szedni ezeket a szerepeket, akkor lenne:
+- egy Category osztály, ami a Code First segítségével az adatbázist "jelentené"
+- egy CategoryModel osztály, amibe az adatbézisból olvasott adatokat beírnánk.
+- és egy CategoryViewModel, amit a Controller gyárt, és átad a View-nak, illetve, a Controller fogad a HTML Form-ról és gyárt belőle CategoryModel-t, amit aztán valahogy Category-vá alakítunk és az adatbázisba írjuk.
+
 

@@ -55,10 +55,10 @@ namespace OopRestaurant201710.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Jelszó")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Emlékezz rám")]
         public bool RememberMe { get; set; }
     }
 
