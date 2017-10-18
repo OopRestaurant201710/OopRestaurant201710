@@ -380,3 +380,23 @@ Ha szét akarnánk szedni ezeket a szerepeket, akkor lenne:
 
 
 ```
+
+## CRUD műveletek szervezése a Controlleren
+- C=Create, 
+- R=Read, 
+- U=Update, 
+- D=Delete
+- N=New
+
+### Megjelenítő művelek (Get action-ök)
+- Details
+- Create
+- Edit
+- Delete
+
+Ezekben az a közös, hogy ezek megjelenítő oldalakat generálnak
+Adat(Bázis)Műveletek:
+- Read
+- New
+
+

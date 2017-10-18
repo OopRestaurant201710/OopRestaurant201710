@@ -15,6 +15,62 @@ namespace OopRestaurant201710.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Ez a függvény felelős a model betöltéséért minden megjelenítő (get) action esetén
+        /// </summary>
+        /// <param name="id">MenuItem azonosító, lehet null is.</param>
+        /// <param name="op">Művelet: Read vagy New</param>
+        /// <returns></returns>
+        private MenuItem ReadOrNewMenuItem(int? id, ReadOrNewOperation op)
+        {
+
+            MenuItem menuItem;
+
+            switch (op) //Az op változó értékétől függ, hogy merre megyünk tovább
+            {
+                case ReadOrNewOperation.Read: //ha Read az érték akkor erre
+                    //1. Adatok betöltése az Adatbázisból (Model)
+                    /////////////////////////////////////////////
+                    menuItem = db.MenuItems.Find(id);
+
+                    if (menuItem == null)
+                    {
+                        //return menuItem; //ez ugyanaz:
+                        return null;
+                    }
+
+                    //Ahhoz, hogy legyen, be kell töltenünk a menuItem Category property-jét,
+                    //amit magától az EF (EntityFramework) nem tölt be
+                    db.Entry(menuItem)
+                      .Reference(x => x.Category)
+                      .Load();
+                    break;
+
+                case ReadOrNewOperation.New: //ha new az érték akkor erre
+                    //1. Adat (model) példányosítása "röptében"
+                    menuItem = new MenuItem();
+                    break;
+
+                default: //Ha egyik sem igaz a fentiek közül akkor van ez
+                    throw new Exception($"Erre nem készültünk fel: {op}");
+            }
+
+
+            //2. Megjelenítési adatok feltöltése (ViewModel)
+            //hogy be tudjuk állítani a lenyílót, megadjuk az aktuális Category azonosítóját
+
+            if (menuItem.Category!=null)
+            {
+                menuItem.CategoryId = menuItem.Category.Id;
+            }
+            //leküldjük a Categories tábla tartalmát (db.Categories.ToList())
+            //megadjuk, hogy melyik mező azonosítja a sort, és adja azt az értéket, ami a végeredmény (Id),
+            //megadjuk, hogy a lenyíló egyes soraiba, melyik property értékei kerüljenek (Name)
+            LoadAssignableCategories(menuItem);
+
+            return menuItem;
+        }
+
         private void LoadAssignableCategories(MenuItem menuItem)
         {
             menuItem.AssignableCategories = new SelectList(db.Categories.OrderBy(x => x.Name).ToList(), "Id", "Name");
@@ -33,12 +89,11 @@ namespace OopRestaurant201710.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MenuItem menuItem = db.MenuItems.Find(id);
+            MenuItem menuItem = ReadOrNewMenuItem(id, ReadOrNewOperation.Read);
             if (menuItem == null)
             {
                 return HttpNotFound();
             }
-            LoadAssignableCategories(menuItem);
             return View(menuItem);
         }
 
@@ -46,8 +101,7 @@ namespace OopRestaurant201710.Controllers
         [Authorize(Roles = "Fopincer,Admin")] //Csak a Főpincér és az Admin csoport tagjai használhatják ezt az Action-t
         public ActionResult Create()
         {
-            var menuItem = new MenuItem();
-            //todo: ezt az adatbetöltést csináljuk meg jól!
+            var menuItem = ReadOrNewMenuItem(null, ReadOrNewOperation.New);
             LoadAssignableCategories(menuItem);
             return View(menuItem);
         }
@@ -102,24 +156,12 @@ namespace OopRestaurant201710.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MenuItem menuItem = db.MenuItems.Find(id);
+
+            MenuItem menuItem = ReadOrNewMenuItem(id, ReadOrNewOperation.Read);
             if (menuItem == null)
             {
                 return HttpNotFound();
             }
-
-            //Ahhoz, hogy legyen, be kell töltenünk a menuItem Category property-jét,
-            //amit magától az EF (EntityFramework) nem tölt be
-            db.Entry(menuItem)
-              .Reference(x => x.Category)
-              .Load();
-
-            //hogy be tudjuk állítani a lenyílót, megadjuk az aktuális Category azonosítóját
-            menuItem.CategoryId = menuItem.Category.Id;
-            //leküldjük a Categories tábla tartalmát (db.Categories.ToList())
-            //megadjuk, hogy melyik mező azonosítja a sort, és adja azt az értéket, ami a végeredmény (Id),
-            //megadjuk, hogy a lenyíló egyes soraiba, melyik property értékei kerüljenek (Name)
-            LoadAssignableCategories(menuItem);
 
             return View(menuItem);
         }
@@ -176,12 +218,11 @@ namespace OopRestaurant201710.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MenuItem menuItem = db.MenuItems.Find(id);
+            MenuItem menuItem = ReadOrNewMenuItem(id, ReadOrNewOperation.Read);
             if (menuItem == null)
             {
                 return HttpNotFound();
             }
-            LoadAssignableCategories(menuItem);
             return View(menuItem);
         }
 
