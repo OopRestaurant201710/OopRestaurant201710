@@ -408,3 +408,19 @@ Ezekben a műveletekben az a közös, hogy a beérkező adatokat elmentik:
 - Create
 - Update
 - Delete
+
+## Gyakorlás és ismétlés
+- Asztalok és csoportosításuk: 
+  az asztalfoglalásnak és a rendelésfelvételnek/számlázásnak is alapja, hogy a vendégek asztaloknál 
+  foglalnak helyet, így kihagyhatatlan, hogy legyen az asztalokról nyilvántartásunk.
+
+Fontos, hogy az adatmodell készítésekor az alapvető érvényességi feltételekre is koncentráljunk, később mindig nehezebb beépíteni!
+
+Fontos, hogy a szöveges mezők (ha nincs rajtuk egyéb megszorítás, akkor tetszőleges hosszű szöveget tartalmazhatnak, **nvarcha(max)** típusú mező lesz belőlük)
+
+- Tegyünk fel olyan elemeket az étlapra, amikre nem készültünk fel. 
+  - Például szeretnénk desszertet felvenni az étlapra, és legyen cukormentes is
+  - Az italok közül vannak szénsavas és szénsavmentes italok is.
+  - az ételek közül pedig egyebek mellett érdemes nyilvántartani, hogy tartalmaz-e húst.
+
+
