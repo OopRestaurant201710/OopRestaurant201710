@@ -418,9 +418,21 @@ Fontos, hogy az adatmodell készítésekor az alapvető érvényességi feltéte
 
 Fontos, hogy a szöveges mezők (ha nincs rajtuk egyéb megszorítás, akkor tetszőleges hosszű szöveget tartalmazhatnak, **nvarcha(max)** típusú mező lesz belőlük)
 
+
+
+
+
+
+
 - Tegyünk fel olyan elemeket az étlapra, amikre nem készültünk fel. 
   - Például szeretnénk desszertet felvenni az étlapra, és legyen cukormentes is
   - Az italok közül vannak szénsavas és szénsavmentes italok is.
   - az ételek közül pedig egyebek mellett érdemes nyilvántartani, hogy tartalmaz-e húst.
 
+
+## Házi feladat (2017.10.24)
+- az adatfeltöltéssel játszani (Migrations/Configuration/Seed) több asztal, több helyszín
+- az Asztal osztálynak konstruktor készítése
+- a Location osztálynak generált vezérlő és nézetek átnézése
+- A Location és a Categories nézetek továbbfejlesztése: DisplayTemplate és EditorTemplate készítése és használata
 

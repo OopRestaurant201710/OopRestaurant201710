@@ -167,6 +167,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Migrations\201710241137182_add Tables database table.cs" />
     <Compile Include="Migrations\201710241137182_add Tables database table.Designer.cs">
       <DependentUpon>201710241137182_add Tables database table.cs</DependentUpon>
@@ -285,6 +286,11 @@
     <Content Include="Views\MenuItems\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MenuItem.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuItem.cshtml" />
+    <Content Include="Views\Locations\Create.cshtml" />
+    <Content Include="Views\Locations\Delete.cshtml" />
+    <Content Include="Views\Locations\Details.cshtml" />
+    <Content Include="Views\Locations\Edit.cshtml" />
+    <Content Include="Views\Locations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
