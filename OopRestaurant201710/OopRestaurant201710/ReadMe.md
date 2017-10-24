@@ -435,4 +435,5 @@ Fontos, hogy a szöveges mezők (ha nincs rajtuk egyéb megszorítás, akkor tet
 - az Asztal osztálynak konstruktor készítése
 - a Location osztálynak generált vezérlő és nézetek átnézése
 - A Location és a Categories nézetek továbbfejlesztése: DisplayTemplate és EditorTemplate készítése és használata
-
+- A Category osztály megjelenítése magyar nyelven
+- A jogosultságok beállítása a Locations-nek megfelelő módon a Category nézeteken/vezérlőn is.

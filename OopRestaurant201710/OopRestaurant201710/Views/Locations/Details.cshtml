@@ -29,6 +29,19 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+@if (Request.IsAuthenticated  //ezzel biztosítjuk, hogy legyen a felhasználó bejelentkezve. Ha nem lenne, nem lenne User-ünk sem!
+                                                            &&                        //ÉS!
+                                                            (
+                                                            User.IsInRole("Admin")    // ezzel pedig azt, hogy a felhasználó az Admin csoporthoz tartozzon
+                                                            ||                        // VAGY
+                                                            User.IsInRole("Fopincer") // a Főpincérhez
+                                                            )
+                                                        )
+{
+    <span>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    </span>
+}
+
     @Html.ActionLink("Back to List", "Index")
 </p>

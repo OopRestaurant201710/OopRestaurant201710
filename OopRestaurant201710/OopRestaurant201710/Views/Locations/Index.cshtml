@@ -6,9 +6,20 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (Request.IsAuthenticated  //ezzel biztosítjuk, hogy legyen a felhasználó bejelentkezve. Ha nem lenne, nem lenne User-ünk sem!
+        &&                        //ÉS!
+        (
+        User.IsInRole("Admin")    // ezzel pedig azt, hogy a felhasználó az Admin csoporthoz tartozzon
+        ||                        // VAGY
+        User.IsInRole("Fopincer") // a Főpincérhez
+        )
+    )
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+}
 <table class="table">
     <tr>
         <th>
@@ -29,9 +40,34 @@
             @Html.DisplayFor(modelItem => item.IsOutdoor)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @if (Request.IsAuthenticated  //ezzel biztosítjuk, hogy legyen a felhasználó bejelentkezve. Ha nem lenne, nem lenne User-ünk sem!
+                                                    &&                        //ÉS!
+                                                    (
+                                                    User.IsInRole("Admin")    // ezzel pedig azt, hogy a felhasználó az Admin csoporthoz tartozzon
+                                                    ||                        // VAGY
+                                                    User.IsInRole("Fopincer") // a Főpincérhez
+                                                    )
+                                                )
+            {
+                <span>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                </span>
+            }
+
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) 
+            @if (Request.IsAuthenticated  //ezzel biztosítjuk, hogy legyen a felhasználó bejelentkezve. Ha nem lenne, nem lenne User-ünk sem!
+                                    &&                        //ÉS!
+                                    (
+                                    User.IsInRole("Admin")    // ezzel pedig azt, hogy a felhasználó az Admin csoporthoz tartozzon
+                                    ||                        // VAGY
+                                    User.IsInRole("Fopincer") // a Főpincérhez
+                                    )
+                                )
+            {
+                <span>
+                    | @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </span>
+            }
         </td>
     </tr>
 }

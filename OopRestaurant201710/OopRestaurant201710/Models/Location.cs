@@ -31,12 +31,14 @@ namespace OopRestaurant201710.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name="Megnevezés")]
         public string Name { get; set; }
 
         /// <summary>
         /// Jelzi, hogy a terem/terület kültéri-e?
         /// true, ha kültéri, false, ha beltéri
         /// </summary>
+        [Display(Name="A szabadban van?")]
         public bool IsOutdoor { get; set; }
 
     }
