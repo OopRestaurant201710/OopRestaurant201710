@@ -429,6 +429,8 @@ Fontos, hogy a szöveges mezők (ha nincs rajtuk egyéb megszorítás, akkor tet
   - Az italok közül vannak szénsavas és szénsavmentes italok is.
   - az ételek közül pedig egyebek mellett érdemes nyilvántartani, hogy tartalmaz-e húst.
 
+- Jogosultságcsoportok és felhasználók feltöltése Seed-del.
+
 
 ## Házi feladat (2017.10.24)
 - az adatfeltöltéssel játszani (Migrations/Configuration/Seed) több asztal, több helyszín
@@ -437,3 +439,5 @@ Fontos, hogy a szöveges mezők (ha nincs rajtuk egyéb megszorítás, akkor tet
 - A Location és a Categories nézetek továbbfejlesztése: DisplayTemplate és EditorTemplate készítése és használata
 - A Category osztály megjelenítése magyar nyelven
 - A jogosultságok beállítása a Locations-nek megfelelő módon a Category nézeteken/vezérlőn is.
+- Jogosultságok beállítása az Asztalok (Table) "osztályon" (Vezérlőn és nézeteken)
+- Adatok betöltése és kiírása a TablesController-en

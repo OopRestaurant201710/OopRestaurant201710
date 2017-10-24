@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
+    <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Migrations\201710241137182_add Tables database table.cs" />
     <Compile Include="Migrations\201710241137182_add Tables database table.Designer.cs">
       <DependentUpon>201710241137182_add Tables database table.cs</DependentUpon>
@@ -291,6 +292,11 @@
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
+    <Content Include="Views\Tables\Create.cshtml" />
+    <Content Include="Views\Tables\Delete.cshtml" />
+    <Content Include="Views\Tables\Details.cshtml" />
+    <Content Include="Views\Tables\Edit.cshtml" />
+    <Content Include="Views\Tables\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
