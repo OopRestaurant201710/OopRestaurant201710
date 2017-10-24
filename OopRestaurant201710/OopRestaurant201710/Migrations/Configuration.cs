@@ -44,7 +44,7 @@ namespace OopRestaurant201710.Migrations
                                          .Where(x => x.Name == "Terasz") //Az összes sort visszaadja, amire ez igaz. Ha nincs: üres lista, ha több van: hosszabb lista
                                          //.Single(); ha ezt írnánk, akkor ugyanazt írnánk mint a pizzáknál
                                          //.First(); ha üres a lista: hiba, ha van elem a listán, akkor az elsõ elemt adja vissza.
-                                         .FirstOrDefault(); //Ha üres a lista: null-t ad vissza, ha van elem a listán, akkor az elsp elemet adja
+                                         .FirstOrDefault(); //Ha üres a lista: null-t ad vissza, ha van elem a listán, akkor az elsõ elemet adja
 
             if (outdoorLocation == null)
             { //ha nincs location példány nem érdemes továbbmenni
