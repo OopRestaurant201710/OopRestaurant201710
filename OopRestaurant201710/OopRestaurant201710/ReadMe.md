@@ -418,12 +418,6 @@ Fontos, hogy az adatmodell készítésekor az alapvető érvényességi feltéte
 
 Fontos, hogy a szöveges mezők (ha nincs rajtuk egyéb megszorítás, akkor tetszőleges hosszű szöveget tartalmazhatnak, **nvarcha(max)** típusú mező lesz belőlük)
 
-
-
-
-
-
-
 - Tegyünk fel olyan elemeket az étlapra, amikre nem készültünk fel. 
   - Például szeretnénk desszertet felvenni az étlapra, és legyen cukormentes is
   - Az italok közül vannak szénsavas és szénsavmentes italok is.
@@ -441,3 +435,20 @@ Fontos, hogy a szöveges mezők (ha nincs rajtuk egyéb megszorítás, akkor tet
 - A jogosultságok beállítása a Locations-nek megfelelő módon a Category nézeteken/vezérlőn is.
 - Jogosultságok beállítása az Asztalok (Table) "osztályon" (Vezérlőn és nézeteken)
 - Adatok betöltése és kiírása a TablesController-en
+
+## Tennivalók
+- az asztalok listáját szeretném úgy átszervezni, hogy külön csoportba kerüljön a kültéri és a beltéri asztalok listája.
+
+Ehhez vagy átalakítom a nézet kódját, és feldolgozom valamint átalakítom a megkapott adatokat, vagy, a vezérlőben 
+dolgozom többet: előre feldolgozom az asztalok listáját, és előállítok egy olyan modellt, amit könnyű megjeleníteni.
+
+  - kell egy új ViewModel, ami tartalmazza a termek listáját, majd ezen belül az egyes termekben
+    tartalmazza a teremben lévő asztalok listáját
+
+  - a nézetnek az adott ViewModel-t kell megjeleníteni
+
+(Zárójeles megjegyzés: az adatbázis modellemet is át tudom alakítani, hogy eleve 
+megmondja a termekhez tartozó asztalok listáját)
+
+## Házi feladat (2017.10.26)
+- az asztalok listájába kitenni, hogy kültéri-e vagy sem

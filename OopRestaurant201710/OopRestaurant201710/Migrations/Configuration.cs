@@ -48,11 +48,26 @@ namespace OopRestaurant201710.Migrations
 
             if (outdoorLocation == null)
             { //ha nincs location példány nem érdemes továbbmenni
-                throw new Exception("Nincs megfelelõ Location az adatbázisban");
+                throw new Exception("Nincs megfelelõ Location az adatbázisban (Terasz)");
             }
 
             //Asztalok feltöltése
-            context.Tables.AddOrUpdate(x => x.Name, new Table() { Name = "Bal-2", Location = outdoorLocation });
+            context.Tables.AddOrUpdate(x => x.Name, new Table() { Name = "Bal-1 (t)", Location = outdoorLocation });
+            context.Tables.AddOrUpdate(x => x.Name, new Table() { Name = "Bal-2 (t)", Location = outdoorLocation });
+            context.Tables.AddOrUpdate(x => x.Name, new Table() { Name = "Jobb-1 (t)", Location = outdoorLocation });
+
+            var indoorLocation = context.Locations
+                                        .Where(x => x.Name == "Belsõ terem")
+                                        .FirstOrDefault();
+
+            if (indoorLocation == null)
+            { //ha nincs location példány nem érdemes továbbmenni
+                throw new Exception("Nincs megfelelõ Location az adatbázisban (Belsõ terem)");
+            }
+
+            context.Tables.AddOrUpdate(x => x.Name, new Table() { Name = "Bal-1 (b)", Location = indoorLocation });
+            context.Tables.AddOrUpdate(x => x.Name, new Table() { Name = "Jobb-1 (b)", Location = indoorLocation });
+
             context.SaveChanges();
         }
     }

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OopRestaurant201710.Models
 {
@@ -41,5 +43,7 @@ namespace OopRestaurant201710.Models
         [Display(Name="A szabadban van?")]
         public bool IsOutdoor { get; set; }
 
+        [NotMapped]
+        public List<Table> Tables { get; internal set; }
     }
 }
