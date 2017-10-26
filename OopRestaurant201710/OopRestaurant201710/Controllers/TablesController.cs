@@ -14,6 +14,103 @@ namespace OopRestaurant201710.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        private Table ReadOrNewTable(int? id, ReadOrNewOperation op)
+        {
+            Table table;
+
+            switch (op)
+            {
+                case ReadOrNewOperation.Read:
+                    table = db.Tables.Find(id);
+                    if (table == null)
+                    {
+                        return null;
+                    }
+
+                    //szólni kell az Entity Frameworknek, hogy 
+                    //az asztalhoz töltse be a termet is, ahova rögzítettük.
+                    db.Entry(table)
+                      .Reference(x => x.Location)
+                      .Load();
+
+                    break;
+                case ReadOrNewOperation.New:
+                    table = new Table();
+                    break;
+                default:
+                    throw new Exception($"Erre a műveletre nem vagyunk felkészítve: {op}");
+            }
+
+            //A lenyílómező adatainak kitöltése
+            // ?: feltételes null operátor, 
+            //      ha eddig a kifejezés értéke null, akkor megáll és a végeredmény null
+            //      ha pedig nem null, akkor folytatódik a kiértékelés, és megy tovább 
+
+            //ugyanaz, mint ez:
+            //int? eredmeny;
+            //if (table.Location == null)
+            //{
+            //    eredmeny = null;
+            //}
+            //else
+            //{
+            //    eredmeny = table.Location.Id;
+            //}
+
+            // ??: null operátor, ha a bal oldalán szereplő érték null, akkor az eredmény a jobb oldalán szereplő érték
+            //ugyanaz, mint ez
+            //if (eredmeny == null)
+            //{
+            //    eredmeny = 0;
+            //}
+
+            table.LocationId = table.Location?.Id ?? 0;
+            LoadAssignableLocations(table);
+
+            return table;
+        }
+
+        private void LoadAssignableLocations(Table table)
+        {
+            table.AssignableLocations = new SelectList(db.Locations.ToList(), "Id", "Name");
+        }
+
+        private void CreateUpdateOrDeleteTable(Table table, CreateUpdateOrDeleteOperation op)
+        {
+            switch (op)
+            {
+                case CreateUpdateOrDeleteOperation.Create:
+                    //a kiválasztott termet be kell állítani
+                    table.Location = db.Locations.Find(table.LocationId);
+                    db.Tables.Add(table);
+                    break;
+                case CreateUpdateOrDeleteOperation.Update:
+                    //todo: a teremhez be kell állítani a location-t
+
+                    //1. be kell mutatni a model-t az adatbázisnak
+                    db.Tables.Attach(table);
+
+                    //2. be kell tölteni a hozzátartozó eredeti teremadatokat
+                    db.Entry(table)                //kérem az EF adatbázist elérő részét
+                      .Reference(x => x.Location)  //kérem a csatlakozó táblák közül a Location-t
+                      .Load();                     //Onnan betöltöm az adatokat
+
+                    //3. módosítani kell az új terem adatot
+                    table.Location = db.Locations.Find(table.LocationId);
+
+                    //4. Jelezni kell, hogy változott, így a többi érték (Name, stb.) változást is figyelmbe veszi az EF
+                    db.Entry(table).State = EntityState.Modified;
+
+                    //todo: a kiválasztott termet be kell állítani
+                    break;
+                case CreateUpdateOrDeleteOperation.Delete:
+                    db.Tables.Remove(table);
+                    break;
+                default:
+                    throw new Exception($"Erre a műveletre nem vagyunk felkészítve: {op}");
+            }
+        }
+
         // GET: Tables
         public ActionResult Index()
         {
@@ -36,7 +133,7 @@ namespace OopRestaurant201710.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table table = db.Tables.Find(id);
+            Table table = ReadOrNewTable(id, ReadOrNewOperation.Read);
             if (table == null)
             {
                 return HttpNotFound();
@@ -44,10 +141,12 @@ namespace OopRestaurant201710.Controllers
             return View(table);
         }
 
+
         // GET: Tables/Create
         public ActionResult Create()
         {
-            return View();
+            var table = ReadOrNewTable(null, ReadOrNewOperation.New);
+            return View(table);
         }
 
         // POST: Tables/Create
@@ -55,15 +154,20 @@ namespace OopRestaurant201710.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Table table)
+        public ActionResult Create([Bind(Include = "Id,Name,LocationId")] Table table)
         {
+            CreateUpdateOrDeleteTable(table, CreateUpdateOrDeleteOperation.Create);
+
+            ModelState.Clear();
+            TryValidateModel(table);
+
             if (ModelState.IsValid)
             {
-                db.Tables.Add(table);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            LoadAssignableLocations(table);
             return View(table);
         }
 
@@ -74,7 +178,7 @@ namespace OopRestaurant201710.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table table = db.Tables.Find(id);
+            Table table = ReadOrNewTable(id, ReadOrNewOperation.Read);
             if (table == null)
             {
                 return HttpNotFound();
@@ -87,14 +191,20 @@ namespace OopRestaurant201710.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Table table)
+        public ActionResult Edit([Bind(Include = "Id,Name,LocationId")] Table table)
         {
+            CreateUpdateOrDeleteTable(table, CreateUpdateOrDeleteOperation.Update);
+
+            ModelState.Clear();
+            TryValidateModel(table);
+
             if (ModelState.IsValid)
             {
-                db.Entry(table).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            LoadAssignableLocations(table);
             return View(table);
         }
 
@@ -105,7 +215,7 @@ namespace OopRestaurant201710.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Table table = db.Tables.Find(id);
+            Table table = ReadOrNewTable(id, ReadOrNewOperation.Read);
             if (table == null)
             {
                 return HttpNotFound();
@@ -119,7 +229,7 @@ namespace OopRestaurant201710.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Table table = db.Tables.Find(id);
-            db.Tables.Remove(table);
+            CreateUpdateOrDeleteTable(table, CreateUpdateOrDeleteOperation.Delete);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

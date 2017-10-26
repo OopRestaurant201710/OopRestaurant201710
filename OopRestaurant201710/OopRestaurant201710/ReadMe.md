@@ -437,6 +437,8 @@ Fontos, hogy a szöveges mezők (ha nincs rajtuk egyéb megszorítás, akkor tet
 - Adatok betöltése és kiírása a TablesController-en
 
 ## Tennivalók
+### Adatok betöltése és kiírása a TablesController-en
+
 - az asztalok listáját szeretném úgy átszervezni, hogy külön csoportba kerüljön a kültéri és a beltéri asztalok listája.
 
 Ehhez vagy átalakítom a nézet kódját, és feldolgozom valamint átalakítom a megkapott adatokat, vagy, a vezérlőben 
@@ -450,6 +452,7 @@ dolgozom többet: előre feldolgozom az asztalok listáját, és előállítok e
 (Zárójeles megjegyzés: az adatbázis modellemet is át tudom alakítani, hogy eleve 
 megmondja a termekhez tartozó asztalok listáját)
 
+- Lenyílómező
 
 
 ## Házi feladat (2017.10.26)

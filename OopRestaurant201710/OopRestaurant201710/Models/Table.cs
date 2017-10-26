@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace OopRestaurant201710.Models
 {
@@ -24,6 +26,19 @@ namespace OopRestaurant201710.Models
 
         [Required] //lásd mint a Name property
         public Location Location { get; set; }
+
+        /// <summary>
+        /// ViewModel: a lenyílómező kiválasztott sora
+        /// </summary>
+        [NotMapped] //ezzel kikerül a Code First hatóköréből, csak mi használjuk az alkalmazásban, az adatbázisba nem kerül
+        public int LocationId { get; set; }
+
+        /// <summary>
+        /// ViewModel: a lenyílómező tartalma
+        /// </summary>
+        [NotMapped] //ezzel kikerül a Code First hatóköréből, csak mi használjuk az alkalmazásban, az adatbázisba nem kerül
+        public SelectList AssignableLocations { get; set; }
+
 
     }
 }
