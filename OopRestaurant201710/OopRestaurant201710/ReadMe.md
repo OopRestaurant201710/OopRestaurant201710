@@ -454,6 +454,12 @@ megmondja a termekhez tartozó asztalok listáját)
 
 - Lenyílómező
 
+- Szerepek és felhasználók betöltése az adatok feltöltésével
+  - A Szerepeket az **Authorize** annotációval fixen beírjuk, így az alkalmazásunk működéséhez kellenek a szerepek az adatbázisba
+  - Ha rendes alkalmazást készítünk, akkor a felhasználók adminisztrációjának a webes felületét meg lehet írni ebből a kódból.
+  - Ha van alkalmazásunk beépített szerepekkel és egy felülettel, ahol a felhasználókat tudjuk adminisztrálni, akkor kell adminisztrátor felhasználó, aki a későbbi felhasználókat tudja majd adminisztrálni
+  - Ekkor viszont érdemes beépíteni az admin felhasználó(ka)t az adatbázis feltöltésekor, hogy ne utólag kelljen összehuzalozni minden telepítés után.
 
 ## Házi feladat (2017.10.26)
 - az asztalok listájába kitenni, hogy kültéri-e vagy sem
+- a szerepek és/vagy a felhasználók adminisztrációjához saját webes felület létrehozása az itteni kódok alapján

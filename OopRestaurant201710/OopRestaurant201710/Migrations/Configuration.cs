@@ -2,6 +2,8 @@
 
 namespace OopRestaurant201710.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Models; //mivel a "gyökér" közös, erre innen rálátunk, ezért csak a gyökértõl megkülönböztetõ útvonal kell
     using System;
     using System.Data.Entity;
@@ -42,8 +44,8 @@ namespace OopRestaurant201710.Migrations
 
             var outdoorLocation = context.Locations
                                          .Where(x => x.Name == "Terasz") //Az összes sort visszaadja, amire ez igaz. Ha nincs: üres lista, ha több van: hosszabb lista
-                                         //.Single(); ha ezt írnánk, akkor ugyanazt írnánk mint a pizzáknál
-                                         //.First(); ha üres a lista: hiba, ha van elem a listán, akkor az elsõ elemt adja vissza.
+                                                                         //.Single(); ha ezt írnánk, akkor ugyanazt írnánk mint a pizzáknál
+                                                                         //.First(); ha üres a lista: hiba, ha van elem a listán, akkor az elsõ elemt adja vissza.
                                          .FirstOrDefault(); //Ha üres a lista: null-t ad vissza, ha van elem a listán, akkor az elsõ elemet adja
 
             if (outdoorLocation == null)
@@ -69,6 +71,53 @@ namespace OopRestaurant201710.Migrations
             context.Tables.AddOrUpdate(x => x.Name, new Table() { Name = "Jobb-1 (b)", Location = indoorLocation });
 
             context.SaveChanges();
+
+            //Csoportok felvitele: Admin, Pincer, Fopincer
+            AddRoleIfNotExists(context, "Admin");
+            AddRoleIfNotExists(context, "Pincer");
+            AddRoleIfNotExists(context, "Fopincer");
+
+            //Felhasználók felvitele: admin@netacademia.hu, pincer@netacademia.hu, fopincer@netacademia.hu
+
+            AddUserIfNotExists(context, "admin@netacademia.hu", "123456aA#", "Admin");
+            AddUserIfNotExists(context, "pincer@netacademia.hu", "123456aA#", "Pincer");
+            AddUserIfNotExists(context, "fopincer@netacademia.hu", "123456aA#", "Fopincer");
+
+        }
+
+        private static void AddUserIfNotExists(ApplicationDbContext context, string email, string pw, string role)
+        {
+            if (!context.Users.Any(x => x.Email == email))
+            { //ha még nincs ilyen felhasználó, akkor létrehozzuk
+
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+
+                var user = new ApplicationUser()
+                {
+                    Email = email,
+                    UserName = email //ez a kettõ megegyezik, enélkül nem mûködik!!!
+                };
+
+                //elmentjük a felhasználót az Identity adatbázisába
+                manager.Create(user, pw);
+
+                //a felhasználót hozzáadjuk a megfelelõ csoporthoz.
+                manager.AddToRole(user.Id, role);
+
+            }
+        }
+
+        private static void AddRoleIfNotExists(ApplicationDbContext context, string roleName)
+        {
+            if (!context.Roles.Any(x => x.Name == roleName))
+            { //ha még nincs ilyen csoport, akkor létrehozzuk
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+
+                var role = new IdentityRole(roleName);
+                manager.Create(role);
+            }
         }
     }
 }
