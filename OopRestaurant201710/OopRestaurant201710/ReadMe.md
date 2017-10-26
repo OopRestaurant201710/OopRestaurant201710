@@ -450,5 +450,7 @@ dolgozom többet: előre feldolgozom az asztalok listáját, és előállítok e
 (Zárójeles megjegyzés: az adatbázis modellemet is át tudom alakítani, hogy eleve 
 megmondja a termekhez tartozó asztalok listáját)
 
+
+
 ## Házi feladat (2017.10.26)
 - az asztalok listájába kitenni, hogy kültéri-e vagy sem

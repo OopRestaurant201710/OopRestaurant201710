@@ -17,31 +17,13 @@ namespace OopRestaurant201710.Controllers
         // GET: Tables
         public ActionResult Index()
         {
-            //lekérdezzük az adatbásból az asztalok listáját és egy változóba mentjük
-            var tables = db.Tables
-                           .Include(x => x.Location)
-                           .ToList(); //ekkor kéri le az adatokat ténylegesen
 
-            //elkészítjük a ViewModel-t
-            //1. kelleni fog a termeknek a listája
-
+            //Betöltöm a termek listáját, és megkérem az
+            //Entity Framework-öt, hogy tegye hozzá a 
+            //teremhez tartozó asztalok listáját
             var locations = db.Locations
+                              .Include(x=>x.Tables)
                               .ToList();
-
-            foreach (var location in locations)
-            {
-                location.Tables = tables.Where(x => x.Location.Id == location.Id)
-                                        .ToList(); //Ez nem kell, mert a tables változóban van már, nem adatbázisból dolgozunk
-
-                //Ha nem készítenénk saját változót, akkor egyből az adatbázisból is tölthetnénk 
-                //a táblák listáját, ekkor a ciklus minden futásakor kinyúlnánk az adatbázisig
-                ///////////////////////////////////////////////////////////////////////////////
-                //location.Tables = db.Tables
-                //                    .Include(x => x.Location)
-                //                    .Where(x => x.Location.Id == location.Id)
-                //                    .ToList(); //ekkor kéri le az adatokat ténylegesen
-
-            }
 
             //majd ezt elküldjük a nézethez
             return View(locations);

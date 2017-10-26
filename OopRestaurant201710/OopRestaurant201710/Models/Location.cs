@@ -43,7 +43,8 @@ namespace OopRestaurant201710.Models
         [Display(Name="A szabadban van?")]
         public bool IsOutdoor { get; set; }
 
-        [NotMapped]
-        public List<Table> Tables { get; internal set; }
+        //felhasználva az Asztalból (Table.cs) ide irányuló kapcsolatot, visszafelé is
+        //ide azokat az asztalokat várom, ami ehhez a teremhez lett rögzítve.
+        public List<Table> Tables { get; set; }
     }
 }
