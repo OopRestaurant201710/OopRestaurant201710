@@ -45,6 +45,14 @@ namespace OopRestaurant201710.Models
 
         //felhasználva az Asztalból (Table.cs) ide irányuló kapcsolatot, visszafelé is
         //ide azokat az asztalokat várom, ami ehhez a teremhez lett rögzítve.
+        //mivel kivettük a NotMapped-ed, ezért 
+        //
+        // 1. a Code First fennhatósága alá kerül.
+        // 2. Mivel ide irányba az asztaltól mutat kapcsolat (minden asztal (Table) egy adott teremhez tartozik (Location)
+        // 3. ezért a teremhez visszafelé ki lehet gyűjteni a hozzá tartozó asztalokat.
+        //
+        // Ezzel a property-vel ezt a létező kapcsolatot felhasználva elérhetővé tesszük az asztalokat
+        // amik a teremhez tartoznak.
         public List<Table> Tables { get; set; }
     }
 }
